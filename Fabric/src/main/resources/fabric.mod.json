@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "orediscoverybroadcast",
+  "version": "2.0",
+
+  "name": "Ore Discovery Broadcast",
+  "description": "Broadcasts a message to the server whenever a player finds an ore vein. With config options and a blacklist.",
+  "authors": [ "Rick South" ],
+  "contact": {
+    "homepage": "https://curseforge.com/minecraft/mc-mods/ore-discovery-broadcast",
+    "sources": "https://github.com/ricksouth/serilum-mc-mod-sources/tree/main/sources/Ore%20Discovery%20Broadcast",
+    "issues": "https://github.com/ricksouth/serilum-mc-mods/labels/Mod:%20Ore%20Discovery%20Broadcast"
+  },
+
+  "license": "All Right Reserved",
+  "icon": "icon.png",
+
+  "environment": "*",
+  "entrypoints": { "main": [ "com.natamus.orediscoverybroadcast.ModFabric" ], "modmenu": [ "com.natamus.orediscoverybroadcast.fabric.config.IntegrateModMenu" ] },
+
+  "depends": {
+    "fabricloader": ">=0.12.5",
+    "fabric": "*",
+    "minecraft": ">=1.20",
+    "java": ">=17",
+    "collective": ">=7.15"
+  },
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "Donate <3" : "https://ricksouth.com/donate"
+      }
+    }
+  },
+
+  "contributors": [
+	  " ",
+	  "Thank you very much to my Membership sponsors for supporting the development of this mod!",
+	  " ",
+	  "If you would like to contribute too, check out https://ricksouth.com/donate.",
+	  " ",
+	  "Membership sponsors:",
+	  " Adam E",
+	  " Alister",
+	  " aternosorg",
+	  " Cherriesaurus",
+	  " FireStriker",
+	  " Greg Johnson",
+	  " Kreezxil",
+	  " Michael W. S.",
+	  " Mir3JonCZ",
+	  " Rebecca Hb.",
+	  " Shana Gitnick",
+	  " silver Bowsman",
+	  " Tyler Behl"
+  ]
+}
