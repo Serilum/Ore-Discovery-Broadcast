@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "id": "orediscoverybroadcast",
-  "version": "2.0",
+  "version": "2.1",
 
   "name": "Ore Discovery Broadcast",
   "description": "Broadcasts a message to the server whenever a player finds an ore vein. With config options and a blacklist.",
   "authors": [ "Rick South" ],
   "contact": {
-    "homepage": "https://curseforge.com/minecraft/mc-mods/ore-discovery-broadcast",
-    "sources": "https://github.com/ricksouth/serilum-mc-mod-sources/tree/main/sources/Ore%20Discovery%20Broadcast",
-    "issues": "https://github.com/ricksouth/serilum-mc-mods/labels/Mod:%20Ore%20Discovery%20Broadcast"
+    "homepage": "https://serilum.com/mod/ore-discovery-broadcast",
+    "sources": "https://github.com/Serilum/Ore-Discovery-Broadcast",
+    "issues": "https://github.com/Serilum/.issue-tracker/labels/Mod:%20Ore%20Discovery%20Broadcast"
   },
 
   "license": "All Right Reserved",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=17",
-    "collective": ">=7.15"
+    "collective": ">=7.21"
   },
 
   "custom": {
