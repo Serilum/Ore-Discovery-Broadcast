@@ -1,0 +1,34 @@
+modLoader="javafml"
+loaderVersion="*"
+license="All rights reserved"
+issueTrackerURL="https://github.com/Serilum/.issue-tracker/labels/Mod:%20Ore%20Discovery%20Broadcast"
+logoFile="icon.png"
+
+[[mods]]
+modId="orediscoverybroadcast"
+version="2.1"
+displayName="Ore Discovery Broadcast"
+displayURL="https://serilum.com/mod/ore-discovery-broadcast"
+authors="Rick South"
+description='''Broadcasts a message to the server whenever a player finds an ore vein. With config options and a blacklist.
+'''
+credits='''Thank you very much to my Membership sponsors for supporting the development of this mod:  
+
+Alister, Andrean Olgo, aternosorg, BirdieMiner, Cherriesaurus, Jack, Jeremy Langford, Michael W. S., pepe1191, Shana Gitnick, Tyler Behl   
+
+If you would like to contribute too, check out https://serilum.com/donate. Appreciate it! <3   
+'''
+
+[[dependencies.orediscoverybroadcast]]
+    modId="collective"
+    mandatory=true
+    versionRange="[7.53,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.orediscoverybroadcast]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.5]"
+    ordering="NONE"
+    side="BOTH"
