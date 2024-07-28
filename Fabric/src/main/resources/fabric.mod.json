@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "orediscoverybroadcast",
-  "version": "2.1",
+  "version": "2.2",
 
   "name": "Ore Discovery Broadcast",
   "description": "Broadcasts a message to the server whenever a player finds an ore vein. With config options and a blacklist.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.21",
     "java": ">=21",
-    "collective": ">=7.61"
+    "collective": ">=7.78"
   },
 
   "custom": {
@@ -44,11 +44,9 @@
 	  " Alister",
 	  " Andrean Olgo",
 	  " aternosorg",
-	  " BirdieMiner",
 	  " Cherriesaurus",
-	  " Jeremy Langford",
 	  " Michael W. S.",
-	  " Rare Students",
+	  " Nahuel Fernandez",
 	  " Shana Gitnick",
 	  " Tyler Behl"
   ]
