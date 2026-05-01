@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 public class NeoForgeMiningEvent {
     @SubscribeEvent
@@ -22,7 +23,7 @@ public class NeoForgeMiningEvent {
     }
 
 	@SubscribeEvent
-	public static void onBlockBreak(BlockEvent.BreakEvent e) {
+	public static void onBlockBreak(BreakBlockEvent e) {
 		Level level = WorldFunctions.getWorldIfInstanceOfAndNotRemote(e.getLevel());
 		if (level == null) {
 			return;
