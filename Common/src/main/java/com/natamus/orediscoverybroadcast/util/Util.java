@@ -1,9 +1,6 @@
 package com.natamus.orediscoverybroadcast.util;
 
-import com.natamus.collective.functions.BlockPosFunctions;
-import com.natamus.collective.functions.DataFunctions;
-import com.natamus.collective.functions.HashMapFunctions;
-import com.natamus.collective.functions.NumberFunctions;
+import com.natamus.collective.functions.*;
 import com.natamus.collective.services.Services;
 import com.natamus.orediscoverybroadcast.data.Constants;
 import com.natamus.orediscoverybroadcast.data.Variables;
@@ -27,12 +24,12 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Util {
-	public static final WeakHashMap<Level, List<BlockPos>> ignoredOreBlockPositions = new WeakHashMap<Level, List<BlockPos>>();
+	public static final WeakHashMap<Level, List<BlockPos>> ignoredOreBlockPositions = new WeakHashMap<>();
 
-	public static List<Block> blockBlacklist = new ArrayList<Block>();
+	public static List<Block> blockBlacklist = new ArrayList<>();
 
-	private static final HashMap<Block, ChatFormatting> blockColourMap = new HashMap<Block, ChatFormatting>();
-	private static final HashMap<Block, ChatFormatting> defaultColourMap = new HashMap<Block, ChatFormatting>();
+	private static final HashMap<Block, ChatFormatting> blockColourMap = new HashMap<>();
+	private static final HashMap<Block, ChatFormatting> defaultColourMap = new HashMap<>();
 
 	private static final String dirpath = DataFunctions.getConfigDirectory() + File.separator + Reference.MOD_ID;
 	private static final File dir = new File(dirpath);
@@ -117,7 +114,7 @@ public class Util {
 				}
 
 				int colourIndex = Integer.parseInt(colourIndexString);
-				ChatFormatting colour = ChatFormatting.getById(colourIndex);
+				ChatFormatting colour = ColourFunctions.getById(colourIndex);
 				if (colour == null) {
 					Constants.logger.warn("[" + Reference.NAME + "] Unable to find colour for colour id: " + colourIndex);
 					continue;
@@ -145,8 +142,8 @@ public class Util {
 			}
 		}
 
-		List<String> oreBlockNames = new ArrayList<String>();
-		HashMap<String, Block> oreBlockMap = new HashMap<String, Block>();
+		List<String> oreBlockNames = new ArrayList<>();
+		HashMap<String, Block> oreBlockMap = new HashMap<>();
 		for (Block block : blockRegistry) {
 			if (isOre(block)) {
 				Identifier rl = blockRegistry.getKey(block);
@@ -175,13 +172,13 @@ public class Util {
 
 			int colourIndex = 9;
 			if (defaultColourMap.containsKey(block)) {
-				colourIndex = defaultColourMap.get(block).getId();
+				colourIndex = defaultColourMap.get(block).ordinal();
 			}
 
 			if (colourMapWriter != null) {
 				colourMapWriter.println(oreBlockName + "|" + colourIndex + ",");
 			}
-			blockColourMap.put(block, ChatFormatting.getById(colourIndex));
+			blockColourMap.put(block, ColourFunctions.getById(colourIndex));
 		}
 
 		if (blacklistWriter != null) {
@@ -230,14 +227,14 @@ public class Util {
 	}
 
 	public static boolean shouldBeIgnored(Level level, BlockPos blockPos) {
-		boolean shouldIgnore = HashMapFunctions.computeIfAbsent(ignoredOreBlockPositions, level, k -> new ArrayList<BlockPos>()).contains(blockPos);
+		boolean shouldIgnore = HashMapFunctions.computeIfAbsent(ignoredOreBlockPositions, level, k -> new ArrayList<>()).contains(blockPos);
 		ignoredOreBlockPositions.get(level).remove(blockPos);
 		return shouldIgnore;
 	}
 
 	public static int getOreCount(Level level, BlockPos blockPos, Block block) {
 		if (!ignoredOreBlockPositions.containsKey(level)) {
-			ignoredOreBlockPositions.put(level, new ArrayList<BlockPos>());
+			ignoredOreBlockPositions.put(level, new ArrayList<>());
 		}
 
 		int addSize = 1;
