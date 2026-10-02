@@ -1,4 +1,4 @@
-package com.natamus.orediscoverybroadcast.data;
+package com.serilum.orediscoverybroadcast.data;
 
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;

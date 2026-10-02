@@ -1,11 +1,11 @@
-package com.natamus.orediscoverybroadcast;
+package com.serilum.orediscoverybroadcast;
 
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.collective.fabric.callbacks.CollectiveBlockEvents;
-import com.natamus.orediscoverybroadcast.events.MiningEvent;
-import com.natamus.orediscoverybroadcast.util.Reference;
-import com.natamus.orediscoverybroadcast.util.Util;
+import com.serilum.orediscoverybroadcast.events.MiningEvent;
+import com.serilum.orediscoverybroadcast.util.Reference;
+import com.serilum.orediscoverybroadcast.util.Util;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;

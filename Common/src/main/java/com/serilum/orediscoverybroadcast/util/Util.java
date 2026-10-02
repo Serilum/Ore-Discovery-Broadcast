@@ -1,12 +1,12 @@
-package com.natamus.orediscoverybroadcast.util;
+package com.serilum.orediscoverybroadcast.util;
 
 import com.natamus.collective.functions.BlockPosFunctions;
 import com.natamus.collective.functions.DataFunctions;
 import com.natamus.collective.functions.HashMapFunctions;
 import com.natamus.collective.functions.NumberFunctions;
 import com.natamus.collective.services.Services;
-import com.natamus.orediscoverybroadcast.data.Constants;
-import com.natamus.orediscoverybroadcast.data.Variables;
+import com.serilum.orediscoverybroadcast.data.Constants;
+import com.serilum.orediscoverybroadcast.data.Variables;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;

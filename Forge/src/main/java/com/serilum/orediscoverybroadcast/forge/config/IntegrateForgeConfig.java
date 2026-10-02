@@ -1,7 +1,7 @@
-package com.natamus.orediscoverybroadcast.forge.config;
+package com.serilum.orediscoverybroadcast.forge.config;
 
 import com.natamus.collective.config.DuskConfig;
-import com.natamus.orediscoverybroadcast.util.Reference;
+import com.serilum.orediscoverybroadcast.util.Reference;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 

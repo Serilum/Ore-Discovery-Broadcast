@@ -1,11 +1,11 @@
-package com.natamus.orediscoverybroadcast.events;
+package com.serilum.orediscoverybroadcast.events;
 
 import com.natamus.collective.fakeplayer.FakePlayer;
 import com.natamus.collective.functions.HashMapFunctions;
 import com.natamus.collective.functions.StringFunctions;
 import com.natamus.collective.services.Services;
-import com.natamus.orediscoverybroadcast.config.ConfigHandler;
-import com.natamus.orediscoverybroadcast.util.Util;
+import com.serilum.orediscoverybroadcast.config.ConfigHandler;
+import com.serilum.orediscoverybroadcast.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;

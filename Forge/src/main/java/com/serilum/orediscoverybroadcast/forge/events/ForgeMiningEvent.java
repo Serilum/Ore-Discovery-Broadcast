@@ -1,8 +1,8 @@
-package com.natamus.orediscoverybroadcast.forge.events;
+package com.serilum.orediscoverybroadcast.forge.events;
 
 import com.natamus.collective.functions.WorldFunctions;
-import com.natamus.orediscoverybroadcast.events.MiningEvent;
-import com.natamus.orediscoverybroadcast.util.Util;
+import com.serilum.orediscoverybroadcast.events.MiningEvent;
+import com.serilum.orediscoverybroadcast.util.Util;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -11,15 +11,15 @@ import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ForgeMiningEvent {
-    @SubscribeEvent
-    public static void onWorldLoad(LevelEvent.Load e) {
-        Level level = WorldFunctions.getWorldIfInstanceOfAndNotRemote(e.getLevel());
-        if (level == null) {
-            return;
-        }
+	@SubscribeEvent
+	public static void onWorldLoad(LevelEvent.Load e) {
+		Level level = WorldFunctions.getWorldIfInstanceOfAndNotRemote(e.getLevel());
+		if (level == null) {
+			return;
+		}
 
 		Util.attemptConfigProcessing(level);
-    }
+	}
 
 	@SubscribeEvent
 	public static void onBlockBreak(BlockEvent.BreakEvent e) {

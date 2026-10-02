@@ -1,4 +1,4 @@
-package com.natamus.orediscoverybroadcast.data;
+package com.serilum.orediscoverybroadcast.data;
 
 public class Variables {
 	public static boolean processedConfig = false;

@@ -1,10 +1,10 @@
-package com.natamus.orediscoverybroadcast;
+package com.serilum.orediscoverybroadcast;
 
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
-import com.natamus.orediscoverybroadcast.forge.config.IntegrateForgeConfig;
-import com.natamus.orediscoverybroadcast.forge.events.ForgeMiningEvent;
-import com.natamus.orediscoverybroadcast.util.Reference;
+import com.serilum.orediscoverybroadcast.forge.config.IntegrateForgeConfig;
+import com.serilum.orediscoverybroadcast.forge.events.ForgeMiningEvent;
+import com.serilum.orediscoverybroadcast.util.Reference;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -32,7 +32,7 @@ public class ModForge {
 	}
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
-    	MinecraftForge.EVENT_BUS.register(ForgeMiningEvent.class);
+		MinecraftForge.EVENT_BUS.register(ForgeMiningEvent.class);
 	}
 
 	private static void setGlobalConstants() {

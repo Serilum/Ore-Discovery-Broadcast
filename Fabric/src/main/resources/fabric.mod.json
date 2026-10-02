@@ -1,35 +1,35 @@
 {
   "schemaVersion": 1,
   "id": "orediscoverybroadcast",
-  "version": "2.3",
+  "version": "2.5",
 
   "name": "Ore Discovery Broadcast",
   "description": "Broadcasts a message to the server whenever a player finds an ore vein. With config options and a blacklist.",
-  "authors": [ "Rick South" ],
+  "authors": [ "Serilum" ],
   "contact": {
     "homepage": "https://serilum.com/mod/ore-discovery-broadcast",
     "sources": "https://github.com/Serilum/Ore-Discovery-Broadcast",
     "issues": "https://github.com/Serilum/.issue-tracker/labels/Mod:%20Ore%20Discovery%20Broadcast"
   },
 
-  "license": "All Right Reserved",
+  "license": "All Rights Reserved",
   "icon": "icon.png",
 
   "environment": "*",
-  "entrypoints": { "main": [ "com.natamus.orediscoverybroadcast.ModFabric" ], "modmenu": [ "com.natamus.orediscoverybroadcast.fabric.config.IntegrateModMenu" ] },
+  "entrypoints": { "main": [ "com.serilum.orediscoverybroadcast.ModFabric" ], "modmenu": [ "com.serilum.orediscoverybroadcast.fabric.config.IntegrateModMenu" ] },
 
   "depends": {
     "fabricloader": ">=0.12.5",
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=17",
-    "collective": ">=7.91"
+    "collective": ">=8.40"
   },
 
   "custom": {
     "modmenu": {
       "links": {
-        "Donate <3" : "https://ricksouth.com/donate"
+        "Donate <3" : "https://serilum.com/donate"
       }
     }
   },
@@ -38,18 +38,15 @@
 	  " ",
 	  "Thank you very much to my Membership sponsors for supporting the development of this mod!",
 	  " ",
-	  "If you would like to contribute too, check out https://serilum.com/donate.",
+	  "If you would like to contribute too, check out https://serilum.com/donate",
 	  " ",
 	  "Membership sponsors:",
-	  " Alister",
 	  " Andrean Olgo",
+	  " AnyankaT",
 	  " aternosorg",
 	  " Cherriesaurus",
-	  " David Sanchez",
-	  " drdog111",
-	  " Michael W. S.",
-	  " t128",
-	  " Tyler Behl",
-	  " XAgent"
+	  " Linda Jansen",
+	  " MWS",
+	  " Tyler Behl"
   ]
 }

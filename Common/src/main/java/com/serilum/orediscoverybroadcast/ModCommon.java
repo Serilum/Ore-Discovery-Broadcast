@@ -1,6 +1,6 @@
-package com.natamus.orediscoverybroadcast;
+package com.serilum.orediscoverybroadcast;
 
-import com.natamus.orediscoverybroadcast.config.ConfigHandler;
+import com.serilum.orediscoverybroadcast.config.ConfigHandler;
 
 public class ModCommon {
 
