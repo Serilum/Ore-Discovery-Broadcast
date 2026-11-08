@@ -19,6 +19,7 @@ public class ConfigHandler extends DuskConfig {
 	@Entry public static boolean hideDeepslateFromName = true;
 	@Entry public static boolean ignoreCreativePlayers = true;
 	@Entry public static boolean ignoreFakePlayers = true;
+	@Entry(registry = "block", filter = "ores") public static String oreBlockBlacklist = "*quartz*";
 
 	public static void initConfig() {
 		configMetaData.put("onlyRunOnDedicatedServers", Arrays.asList(
@@ -47,6 +48,9 @@ public class ConfigHandler extends DuskConfig {
 		));
 		configMetaData.put("ignoreFakePlayers", Arrays.asList(
 			"If enabled, ore discoveries won't be announced when it is broken by a simulated fake player."
+		));
+		configMetaData.put("oreBlockBlacklist", Arrays.asList(
+			"A comma separated list of ore ids that are never broadcast. Use * as a wildcard."
 		));
 
 		DuskConfig.init(Reference.NAME, Reference.MOD_ID, ConfigHandler.class);
