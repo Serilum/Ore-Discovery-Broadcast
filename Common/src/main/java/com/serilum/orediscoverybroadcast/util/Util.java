@@ -1,10 +1,15 @@
 package com.serilum.orediscoverybroadcast.util;
 
+import com.natamus.collective.config.DuskConfig;
+import com.natamus.collective.config.DuskConfigMigration;
+import com.natamus.collective.functions.BlockFunctions;
 import com.natamus.collective.functions.BlockPosFunctions;
+import com.natamus.collective.functions.ConfigFunctions;
 import com.natamus.collective.functions.DataFunctions;
 import com.natamus.collective.functions.HashMapFunctions;
 import com.natamus.collective.functions.NumberFunctions;
 import com.natamus.collective.services.Services;
+import com.serilum.orediscoverybroadcast.config.ConfigHandler;
 import com.serilum.orediscoverybroadcast.data.Constants;
 import com.serilum.orediscoverybroadcast.data.Variables;
 import net.minecraft.ChatFormatting;
@@ -12,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -28,14 +34,11 @@ import java.util.*;
 public class Util {
 	public static final WeakHashMap<Level, List<BlockPos>> ignoredOreBlockPositions = new WeakHashMap<Level, List<BlockPos>>();
 
-	public static List<Block> blockBlacklist = new ArrayList<Block>();
-
 	private static final HashMap<Block, ChatFormatting> blockColourMap = new HashMap<Block, ChatFormatting>();
 	private static final HashMap<Block, ChatFormatting> defaultColourMap = new HashMap<Block, ChatFormatting>();
 
 	private static final String dirpath = DataFunctions.getConfigDirectory() + File.separator + Reference.MOD_ID;
 	private static final File dir = new File(dirpath);
-	private static final File blacklistFile = new File(dirpath + File.separator + "blacklist.txt");
 	private static final File colourMapFile = new File(dirpath + File.separator + "colourmap.txt");
 
 	public static void attemptConfigProcessing(Level level) {
@@ -52,38 +55,11 @@ public class Util {
 
 	public static void processConfig(Level level) throws IOException {
 		setDefaultColourMap();
+		blockColourMap.clear();
 
 		Registry<Block> blockRegistry = level.registryAccess().registryOrThrow(Registries.BLOCK);
 
-		PrintWriter blacklistWriter = null;
-		PrintWriter colourMapWriter = null;
-		if (blacklistFile.isFile() && colourMapFile.isFile()) {
-			String blacklistContent = new String(Files.readAllBytes(Paths.get(dirpath + File.separator + "blacklist.txt")));
-			for (String line : blacklistContent.split(",")) {
-				if (line.contains("//")) {
-					continue;
-				}
-
-				line = line.strip();
-				if (line.isEmpty()) {
-					continue;
-				}
-				if (!line.startsWith("!")) {
-					continue;
-				}
-
-				String blockName = line.replace("\n", "").replace("!", "").trim();
-
-				ResourceLocation blockRL = ResourceLocation.parse(blockName);
-				Block block = blockRegistry.get(blockRL);
-				if (block == null) {
-					Constants.logger.warn("[" + Reference.NAME + "] Unable to find block with resource location: " + line);
-					continue;
-				}
-
-				blockBlacklist.add(block);
-			}
-
+		if (colourMapFile.isFile()) {
 			String colourMapContent = new String(Files.readAllBytes(Paths.get(dirpath + File.separator + "colourmap.txt")));
 			for (String line : colourMapContent.split(",")) {
 				if (line.contains("//")) {
@@ -123,22 +99,13 @@ public class Util {
 
 			return;
 		}
-		else {
-			if (!dir.isDirectory()) {
-				boolean ignored = dir.mkdirs();
-			}
 
-			if (!blacklistFile.isFile()) {
-				blacklistWriter = new PrintWriter(dirpath + File.separator + "blacklist.txt", StandardCharsets.UTF_8);
-				blacklistWriter.println("// To add an ore to the blacklist; add an exclamation mark (!) in front of it,\n");
-			}
-
-			if (!colourMapFile.isFile()) {
-				colourMapWriter = new PrintWriter(dirpath + File.separator + "colourmap.txt", StandardCharsets.UTF_8);
-				colourMapWriter.println("// To change the colour of the broadcasted message; change the number behind the ore,");
-				colourMapWriter.println("// Possible colours; black=0; dark_blue=1; dark_green=2; dark_aqua=3; dark_red=4; dark_purple=5; gold=6; gray=7; dark_gray=8; blue=9; green=10; aqua=11; red=12; light_purple=13; yellow=14; white=15,\n");
-			}
+		if (!dir.isDirectory()) {
+			boolean ignored = dir.mkdirs();
 		}
+
+		PrintWriter colourMapWriter = new PrintWriter(dirpath + File.separator + "colourmap.txt", StandardCharsets.UTF_8);
+		writeColourMapHeader(colourMapWriter);
 
 		List<String> oreBlockNames = new ArrayList<String>();
 		HashMap<String, Block> oreBlockMap = new HashMap<String, Block>();
@@ -159,32 +126,83 @@ public class Util {
 		for (String oreBlockName : oreBlockNames) {
 			Block block = oreBlockMap.get(oreBlockName);
 
-			String prefix = "";
-			if (oreBlockName.contains("quartz")) {
-				prefix = "!";
-			}
-
-			if (blacklistWriter != null) {
-				blacklistWriter.println(prefix + oreBlockName + ",");
-			}
-
 			int colourIndex = 9;
 			if (defaultColourMap.containsKey(block)) {
 				colourIndex = defaultColourMap.get(block).getId();
 			}
 
-			if (colourMapWriter != null) {
-				colourMapWriter.println(oreBlockName + "|" + colourIndex + ",");
-			}
+			colourMapWriter.println(oreBlockName + "|" + colourIndex + ",");
 			blockColourMap.put(block, ChatFormatting.getById(colourIndex));
 		}
 
-		if (blacklistWriter != null) {
-			blacklistWriter.close();
+		colourMapWriter.close();
+	}
+
+	private static void writeColourMapHeader(PrintWriter colourMapWriter) {
+		colourMapWriter.println("// To change the colour of the broadcasted message; change the number behind the ore,");
+		colourMapWriter.println("// Possible colours; black=0; dark_blue=1; dark_green=2; dark_aqua=3; dark_red=4; dark_purple=5; gold=6; gray=7; dark_gray=8; blue=9; green=10; aqua=11; red=12; light_purple=13; yellow=14; white=15,\n");
+	}
+
+	public static String readColourMap() {
+		String colourMapContent;
+		try {
+			colourMapContent = Files.readString(colourMapFile.toPath());
 		}
-		if (colourMapWriter != null) {
+		catch (IOException ignored) {
+			return "";
+		}
+
+		List<String> oreColours = new ArrayList<>();
+		for (String line : colourMapContent.split(",")) {
+			if (line.contains("//")) {
+				continue;
+			}
+
+			String[] lspl = line.trim().split("\\|");
+			if (lspl.length == 2) {
+				oreColours.add(lspl[0].trim() + "=" + lspl[1].trim());
+			}
+		}
+		return String.join(",", oreColours);
+	}
+
+	public static void writeColourMap(MinecraftServer server, String oreColoursText) {
+		try {
+			PrintWriter colourMapWriter = new PrintWriter(dirpath + File.separator + "colourmap.txt", StandardCharsets.UTF_8);
+			writeColourMapHeader(colourMapWriter);
+
+			for (String oreColour : oreColoursText.split(",")) {
+				String[] oreColourParts = oreColour.split("=");
+				if (oreColourParts.length == 2) {
+					colourMapWriter.println(oreColourParts[0].strip() + "|" + oreColourParts[1].strip() + ",");
+				}
+			}
+
 			colourMapWriter.close();
 		}
+		catch (IOException ex) {
+			Constants.logger.warn("[" + Reference.NAME + "] Unable to write the colour map.");
+			return;
+		}
+
+		Variables.processedConfig = false;
+		if (server != null) {
+			attemptConfigProcessing(server.overworld());
+		}
+	}
+
+	public static boolean isBlacklistedOre(Level level, Block block) {
+		return ConfigFunctions.isInIdList(ConfigHandler.oreBlockBlacklist, BlockFunctions.getBlockId(level, block));
+	}
+
+	public static void moveBlacklistFileIntoConfig() {
+		String disabledOres = DuskConfigMigration.takeDisabledIdsFromFile(Reference.MOD_ID, "blacklist.txt");
+		if (disabledOres == null) {
+			return;
+		}
+
+		ConfigHandler.oreBlockBlacklist = disabledOres;
+		DuskConfig.write(Reference.MOD_ID);
 	}
 
 	private static void setDefaultColourMap() {

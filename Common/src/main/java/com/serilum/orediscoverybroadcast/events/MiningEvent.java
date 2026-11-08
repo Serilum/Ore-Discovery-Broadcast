@@ -57,7 +57,7 @@ public class MiningEvent {
 		if (!Util.isOre(state, block)) {
 			return;
 		}
-		if (Util.blockBlacklist.contains(block)) {
+		if (Util.isBlacklistedOre(level, block)) {
 			return;
 		}
 
